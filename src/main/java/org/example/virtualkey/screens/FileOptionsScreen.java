@@ -54,7 +54,12 @@ public class FileOptionsScreen implements Screen {
                 
                 this.Show();
                 break;
+            case 2: // Delete File
+                this.DeleteFile();
                 
+                this.Show();
+                break;
+   
             case 4: // Return to Menu
             	ScreenService.setCurrentScreen(ScreenService.WelcomeScreen);
                 ScreenService.getCurrentScreen().Show();
@@ -97,4 +102,25 @@ public class FileOptionsScreen implements Screen {
 			System.out.println(e);
 		}
 	}
+    public void DeleteFile() {
+    	
+    	System.out.println("Please Enter the Filename:");
+
+        String fileName = this.getInputString();
+
+        System.out.println("You are deleting a file named: " + fileName);
+        
+        
+	    //TODO: Delete file
+        // Finished TODO
+        
+		Path path = FileSystems.getDefault().getPath(Directory.name + fileName).toAbsolutePath();
+		File file = path.toFile();
+	      if (file.delete()) {
+	    	  System.out.println("Deleted File: " + file.getName());
+	    	  dir.getFiles().remove(file);
+	      } else {
+	        System.out.println("Failed to delete file:" + fileName + ", file was not found.");
+	      }
+    }
 }
