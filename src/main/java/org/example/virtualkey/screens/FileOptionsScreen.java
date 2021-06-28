@@ -44,4 +44,57 @@ public class FileOptionsScreen implements Screen {
         }
     }
 
+    @Override
+    public void NavigateOption(int option) {
+        
+    	switch(option) {
+
+            case 1: // Add File
+                this.AddFile();
+                
+                this.Show();
+                break;
+                
+            case 4: // Return to Menu
+            	ScreenService.setCurrentScreen(ScreenService.WelcomeScreen);
+                ScreenService.getCurrentScreen().Show();
+                ScreenService.getCurrentScreen().GetUserInput();
+                
+                break;
+            
+            default:
+                System.out.println("Invalid Option");
+                break;
+                
+                
+        }
+
+    }
+    
+    //TODO: Add functionality to all 
+    
+    // Finished TODO
+
+    public void AddFile() {
+        System.out.println("Please Enter the Filename:");
+
+        String fileName = this.getInputString();
+
+        System.out.println("You are adding a file named: " + fileName);
+        
+		try {
+			Path path = FileSystems.getDefault().getPath(Directory.name + fileName).toAbsolutePath();
+			File file = new File(dir.getName() + fileName);
+			
+		      if (file.createNewFile()) {
+		    	  System.out.println("File created: " + file.getName());
+		    	  dir.getFiles().add(file);
+		    	  
+		      } else {
+		        System.out.println("This File Already Exits, no need to add another");
+		      }
+		}catch (IOException e){
+			System.out.println(e);
+		}
+	}
 }
