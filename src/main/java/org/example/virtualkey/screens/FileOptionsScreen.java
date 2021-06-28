@@ -59,7 +59,12 @@ public class FileOptionsScreen implements Screen {
                 
                 this.Show();
                 break;
-   
+            
+            case 3: // Search File
+                this.SearchFile();
+                this.Show();
+                break;
+
             case 4: // Return to Menu
             	ScreenService.setCurrentScreen(ScreenService.WelcomeScreen);
                 ScreenService.getCurrentScreen().Show();
@@ -122,5 +127,52 @@ public class FileOptionsScreen implements Screen {
 	      } else {
 	        System.out.println("Failed to delete file:" + fileName + ", file was not found.");
 	      }
+    }
+    public void SearchFile() {
+    	
+    	Boolean found = false;
+    	
+    	System.out.println("Please Enter the Filename:");
+
+        String fileName = this.getInputString();
+
+        System.out.println("You are searching for a file named: " + fileName);
+        
+        //TODO Fix it so ArrayList obtains files
+        //Finished TODO
+        
+        ArrayList<File> files = dir.getFiles();
+        
+        
+        for(int i = 0; i < files.size(); i++) {
+			if(files.get(i).getName().equals(fileName)) {
+				System.out.println("Found " + fileName);
+				found = true;
+			}
+        }
+        if (found == false) {
+        	System.out.println("File not found");
+        }
+    }
+    
+    private String getInputString() {
+
+        Scanner in = new Scanner(System.in);
+        return(in.nextLine());
+
+    }
+    
+    private int getOption() {
+        Scanner in = new Scanner(System.in);
+
+        int returnOption = 0;
+        try {
+            returnOption = in.nextInt();
+        }
+        catch (InputMismatchException ex) {
+        	System.out.println("Invalid input");
+        }
+        return returnOption;
+
     }
 }
